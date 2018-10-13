@@ -35,7 +35,6 @@ export class CitiesSearch extends Component {
         {cities && cities.length > 0 &&
           <div className="box">
             <CitiesList
-              isSearching={isSearching}
               cities={cities}
             />
           </div>

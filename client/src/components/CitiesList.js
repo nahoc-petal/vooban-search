@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { City } from './City';
 
-const buttonStyle = {
-  backgroundColor: 'transparent',
-};
-
-export const CitiesList = ({ cities, isSearching }) => (
+export const CitiesList = ({ cities }) => (
   <table className="table is-fullwidth is-striped">
     <thead>
       <tr>
@@ -15,14 +11,6 @@ export const CitiesList = ({ cities, isSearching }) => (
       </tr>
     </thead>
     <tbody>
-      {isSearching &&
-        <tr>
-          <td colSpan="3" className="has-text-centered">
-            <button className="button is-white is-loading" style={buttonStyle} disabled>Loading...</button>
-          </td>
-        </tr>
-      }
-
       {cities.map((city, i) => 
         <City 
           key={i}

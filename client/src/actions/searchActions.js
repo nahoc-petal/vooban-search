@@ -33,7 +33,7 @@ export const searchCities = (searchTerm) => {
       dispatch({
         type: SEARCH_CITIES_SUCCESS,
         isSearching: false,
-        cities: response.data,
+        cities: response.data.suggestions,
       });
     } catch (e) {
       console.log(e);
