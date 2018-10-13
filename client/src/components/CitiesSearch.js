@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SearchInput from './SearchInput';
 import { CitiesList } from './CitiesList';
-import { searchCities } from '../actions/searchActions';
+import { searchCities, resetSearch } from '../actions/searchActions';
 
 export class CitiesSearch extends Component {
 
@@ -13,6 +13,10 @@ export class CitiesSearch extends Component {
   }
 
   searchCities = () => {
+    if(this.props.searchTerm.length === 0) {
+      this.props.resetSearch();
+    }
+
     if(this.props.searchTerm.length >= 3) {
       this.props.searchCities(this.props.searchTerm);
     }
@@ -28,14 +32,16 @@ export class CitiesSearch extends Component {
     return (
       <div>
         <SearchInput isSearching={isSearching} />
-        {cities &&
-          <CitiesList
-            isSearching={isSearching}
-            cities={cities}
-          />
+        {cities && cities.length > 0 &&
+          <div className="box">
+            <CitiesList
+              isSearching={isSearching}
+              cities={cities}
+            />
+          </div>
         }
         {errorMessage &&
-          <div className="notification is-danger">
+          <div className="notification">
             {errorMessage}
           </div>
         }
@@ -61,7 +67,8 @@ const mapStateToProps = state => {
 }
 
  const mapDispatchToProps = dispatch => ({
-  searchCities: (searchTerm) => dispatch(searchCities(searchTerm))
+  searchCities: (searchTerm) => dispatch(searchCities(searchTerm)),
+  resetSearch: () => dispatch(resetSearch())
  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CitiesSearch);

@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-export const City = ({ name, lat, lng }) => (
+export const City = ({ name, lat, long, stateprov, country }) => (
   <tr>
-    <td>{name}</td>
+    <td>{name}, {stateprov}, {country}</td>
     <td className="has-text-right">{lat}</td>
-    <td className="has-text-right">{lng}</td>
+    <td className="has-text-right">{long}</td>
   </tr>
 );
 

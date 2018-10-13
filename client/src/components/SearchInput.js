@@ -2,12 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setSearchTerm } from '../actions/searchActions';
 
-const searchInputStyle = {
-  marginBottom: '40px',
-};
-
 const SearchInput = ({ isSearching, searchTerm, setSearchTerm }) => (
-  <div style={searchInputStyle} className="field">
+  <div className="field">
     <p className={`control has-icons-left is-medium ${isSearching && 'is-loading'}`}>
       <input 
         className="input is-rounded is-medium" 

@@ -27,6 +27,11 @@ export default (state = {
         errorMessage: action.errorMessage,
         isSearching: action.isSearching,
       };
+    case 'RESET_SEARCH': 
+      return {
+        ...state,
+        cities: action.cities,
+      };
     default:
       return state;
   }

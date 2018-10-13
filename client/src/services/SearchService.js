@@ -1,9 +1,18 @@
 import axios from 'axios';
+import { API_URL } from './constants';
+import { slugify } from './../utils';
 
 class SearchService {
-  async getCities(searchTerm) {
-    console.log(searchTerm);
-    return await axios.get('https://cors-anywhere.herokuapp.com/https://reddit.com/r/videos.json');
+  async getCitiesBySearchTerm(searchTerm) {
+    return await axios.get(`${API_URL}/suggestions?filter={
+      "where":{
+        "name":{
+          "like":"${slugify(searchTerm)}",
+          "options":"i"
+        }
+      },
+      "limit":"7"
+    }`);
   }
 }
 

@@ -23,12 +23,14 @@ export const CitiesList = ({ cities, isSearching }) => (
         </tr>
       }
 
-      {cities.length > 0 && cities.map((city, i) => 
+      {cities.map((city, i) => 
         <City 
           key={i}
           name={city.name}
           lat={city.lat}
-          lng={city.lng}
+          long={city.long}
+          stateprov={city.stateprov}
+          country={city.country}
         />)
       }
     </tbody>
