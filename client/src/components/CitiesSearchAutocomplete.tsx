@@ -9,9 +9,9 @@ export interface ICitiesSearchAutocomplete {
   cities: ICity[];
   errorMessage: string;
   isSearching: boolean;
-  resetSearch: any; // todo change
-  searchCities: any; // todo change
-  setSearchTerm: any; // todo change
+  resetSearch: () => any;
+  searchCities: (searchTerm: string) => any;
+  setSearchTerm: (searchTerm: string) => any;
   searchTerm: string;
 }
 

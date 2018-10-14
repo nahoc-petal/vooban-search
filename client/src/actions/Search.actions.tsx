@@ -1,3 +1,5 @@
+import { Action, Dispatch } from 'redux';
+import { ICity } from '../components/City';
 import SearchService from './../services/Search.service'; 
 import {
   RESET_SEARCH,
@@ -7,22 +9,27 @@ import {
   SET_SEARCH_TERM,
 } from './actions.constants';
 
-export const setSearchTerm = (searchTerm: string) => (dispatch: any) => {
-  dispatch({
-    searchTerm,
-    type: SET_SEARCH_TERM,
-  });
-}
-export const resetSearch = () => (dispatch: any) => {
-  dispatch({
-    cities: [],
-    errorMessage: '',
-    type: RESET_SEARCH,
-  });
-}
+export const setSearchTerm = (searchTerm: string) => {
+  return (dispatch: Dispatch<{searchTerm: string, type: string}>): Action => {
+    return dispatch({
+      searchTerm,
+      type: SET_SEARCH_TERM,
+    });
+  };
+};
+
+export const resetSearch = () => {
+  return (dispatch: Dispatch<{cities: ICity[], errorMessage: string, type: string}>): Action => {
+    return dispatch({
+      cities: [],
+      errorMessage: '',
+      type: RESET_SEARCH,
+    });
+  };
+};
 
 export const searchCities = (searchTerm: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch<{errorMessage?:string, isSearching: boolean, type: string}>): Promise<Action> => {
     dispatch({ 
       isSearching: true,
       type: SEARCH_CITIES_REQUEST, 
@@ -30,13 +37,13 @@ export const searchCities = (searchTerm: string) => {
 
     try {
       const response = await SearchService.getCitiesBySearchTerm(searchTerm);
-      dispatch({
+      return dispatch({
         cities: response.data.suggestions,
         isSearching: false,
         type: SEARCH_CITIES_SUCCESS,
       });
     } catch (e) {
-      dispatch({ 
+      return dispatch({ 
         errorMessage: 'Une erreur est survenue',
         isSearching: false, 
         type: SEARCH_CITIES_FAILURE,
