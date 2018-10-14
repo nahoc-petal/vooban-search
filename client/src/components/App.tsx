@@ -1,19 +1,19 @@
-import React from 'react';
+import * as React from 'react';
+import CitiesSearchAutocomplete from './CitiesSearchAutocomplete';
 import Footer from './Footer';
-import CitiesSearch from './CitiesSearch';
 
-const fullpage = {
-  minHeight: '100vh',
+const fullpage: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  minHeight: '100vh',
 };
 
 export default () => (
   <div style={fullpage}>
     <div className="container">
       <section className="section">
-        <CitiesSearch />
+        <CitiesSearchAutocomplete />
       </section>
     </div>
     <Footer />

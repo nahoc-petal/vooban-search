@@ -1,9 +1,9 @@
 export default (state = {
-  searchTerm: '',
-  isSearching: false,
   cities: [],
   errorMessage: '',
-}, action) => {
+  isSearching: false,
+  searchTerm: '',
+}, action: any) => {
   switch (action.type) {
     case 'SET_SEARCH_TERM':
       return {
@@ -27,10 +27,11 @@ export default (state = {
         errorMessage: action.errorMessage,
         isSearching: action.isSearching,
       };
-    case 'RESET_SEARCH': 
+    case 'RESET_SEARCH':
       return {
         ...state,
         cities: action.cities,
+        errorMessage: action.errorMessage,
       };
     default:
       return state;

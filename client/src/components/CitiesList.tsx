@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { City } from './City';
+import { City, ICity } from './City';
 
-export const CitiesList = ({ cities }) => (
+export interface ICitiesList {
+  cities: ICity[];
+}
+
+export const CitiesList: React.SFC<ICitiesList> = ({ cities }) => (
   <table className="table is-fullwidth is-striped">
     <thead>
       <tr>
@@ -19,8 +23,7 @@ export const CitiesList = ({ cities }) => (
           long={city.long}
           stateprov={city.stateprov}
           country={city.country}
-        />)
-      }
+        />)}
     </tbody>
   </table>
 );

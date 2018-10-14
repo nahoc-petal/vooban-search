@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { API_URL } from './constants';
 import { slugify } from './../utils';
+import { API_URL } from './services.constants';
 
 class SearchService {
-  async getCitiesBySearchTerm(searchTerm) {
+  public async getCitiesBySearchTerm(searchTerm: string) {
     return await axios.get(`${API_URL}/suggestions/getCities?q=${slugify(searchTerm)}`);
   }
 }
