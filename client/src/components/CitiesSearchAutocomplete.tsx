@@ -58,11 +58,9 @@ export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutoc
           onSetSearchTerm={this.onSetSearchTerm}
         />
         {cities && cities.length > 0 &&
-          <div className="box">
-            <CitiesList
-              cities={cities}
-            />
-          </div>
+          <CitiesList
+            cities={cities}
+          />
         }
         {errorMessage &&
           <div className="notification">

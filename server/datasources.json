@@ -9,7 +9,7 @@
     "url": "",
     "database": "vooban",
     "password": "",
-    "name": "mongo1",
+    "name": "mongo",
     "user": "",
     "connector": "mongodb"
   }

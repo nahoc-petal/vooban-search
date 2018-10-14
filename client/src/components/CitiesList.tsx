@@ -6,7 +6,7 @@ export interface ICitiesList {
 }
 
 export const CitiesList: React.SFC<ICitiesList> = ({ cities }) => (
-  <table className="table is-fullwidth is-striped">
+  <table className="table is-fullwidth is-striped is-bordered">
     <thead>
       <tr>
         <th>Nom</th>

@@ -4,12 +4,14 @@ module.exports = function (Suggestion) {
 
   Suggestion.getCities = function(q, lat, long, cb) {
 
-    let where = {};
+    const where = {};
 
-    where.name = {
-      like: q,
-      options: "i",
-    };
+    if(q) {
+      where.name = {
+        like: q,
+        options: "i",
+      };
+    }
 
     if(lat) {
       where.lat = { 
@@ -29,6 +31,8 @@ module.exports = function (Suggestion) {
       where,
       limit: 5
     }, function(err, response) {
+      response.score = 1;
+      console.log(response);
       cb(null, response);
     });
   }
@@ -36,7 +40,10 @@ module.exports = function (Suggestion) {
   Suggestion.remoteMethod (
         'getCities',
         {
-          http: {path: '/getCities', verb: 'get'},
+          http: {
+            path: '/getCities', 
+            verb: 'get'
+          },
           accepts: [
             { arg: 'q', type: 'string' },
             { arg: 'lat', type: 'string' },
