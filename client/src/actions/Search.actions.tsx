@@ -9,24 +9,20 @@ import {
   SET_SEARCH_TERM,
 } from './actions.constants';
 
-export const setSearchTerm = (searchTerm: string) => {
-  return (dispatch: Dispatch<{searchTerm: string, type: string}>): Action => {
-    return dispatch({
-      searchTerm,
-      type: SET_SEARCH_TERM,
-    });
-  };
-};
+export const setSearchTerm = (searchTerm: string) => (dispatch: Dispatch<{searchTerm: string, type: string}>): Action => (
+  dispatch({
+    searchTerm,
+    type: SET_SEARCH_TERM,
+  })
+);
 
-export const resetSearch = () => {
-  return (dispatch: Dispatch<{cities: ICity[], errorMessage: string, type: string}>): Action => {
-    return dispatch({
-      cities: [],
-      errorMessage: '',
-      type: RESET_SEARCH,
-    });
-  };
-};
+export const resetSearch = () => (dispatch: Dispatch<{cities: ICity[], errorMessage: string, type: string}>): Action => (
+  dispatch({
+    cities: [],
+    errorMessage: '',
+    type: RESET_SEARCH,
+  })
+);
 
 export const searchCities = (searchTerm: string) => {
   return async (dispatch: Dispatch<{errorMessage?:string, isSearching: boolean, type: string}>): Promise<Action> => {
