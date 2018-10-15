@@ -25,9 +25,7 @@ export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutoc
   };
 
   public componentDidUpdate(prevProps: ICitiesSearchAutocomplete) {
-    if (prevProps.searchTerm !== this.props.searchTerm) {
-      this.searchCities();
-    }
+    prevProps.searchTerm !== this.props.searchTerm ? this.searchCities() : null;
   }
 
   public onSetSearchTerm = (searchTerm: string) => {
@@ -35,13 +33,8 @@ export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutoc
   }
 
   public searchCities = () => {
-    if(this.props.searchTerm.length === 0) {
-      this.props.resetSearch();
-    }
-
-    if(this.props.searchTerm.length >= 3) {
-      this.props.searchCities(this.props.searchTerm);
-    }
+    this.props.searchTerm.length === 0 ? this.props.resetSearch() : null; // empty
+    this.props.searchTerm.length >= 3 ? this.props.searchCities(this.props.searchTerm) : null; // more than 3 characters
   }
 
   public render() {
