@@ -4,35 +4,30 @@ module.exports = function (Suggestion) {
 
   Suggestion.getCities = function(q, lat, long, cb) {
 
-    const where = {};
+    let where = {};
 
-    if(q) {
-      where.name = {
-        like: q,
-        options: "i",
-      };
-    }
+    q ? where.name = { like: q, option: "i"} : null;
+    lat ? where.lat = { like: lat, options: "i" } : null;
+    long ? where.long = { like: long, options: "i" } : null;
 
-    if(lat) {
-      where.lat = { 
-        like: lat,
-        options: "i",
-      }
-    }
+    Suggestion.find({ where, limit: 5 }, function(err, response) {
 
-    if(long) {
-      where.long = { 
-        like: long,
-        options: "i",
-      }
-    }
+      response.map(city => {
+        city.score = Math.random();
+      });
 
-    Suggestion.find({
-      where,
-      limit: 5
-    }, function(err, response) {
-      response.score = 1;
-      console.log(response);
+      response.sort(function(a, b) {
+        let scoreA = a.score;
+        let scoreB = b.score;
+        if (scoreB < scoreA) {
+          return -1;
+        }
+        if (scoreB > scoreA) {
+          return 1;
+        }
+        return 0;
+      });
+
       cb(null, response);
     });
   }
