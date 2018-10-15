@@ -12,11 +12,11 @@
       "required": true
     },
     "lat": {
-      "type": "string",
+      "type": "number",
       "required": true
     },
     "long": {
-      "type": "string",
+      "type": "number",
       "required": true
     },
     "score": {
