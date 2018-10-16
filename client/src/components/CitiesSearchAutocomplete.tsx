@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { resetSearch, searchCities, setSearchTerm } from './../actions/Search.actions';
 import { CitiesList } from './CitiesList';
 import { ICity } from './City';
+
 import SearchInput from './SearchInput';
 
 export interface ICitiesSearchAutocomplete {
@@ -13,6 +14,7 @@ export interface ICitiesSearchAutocomplete {
   searchCities: (searchTerm: string) => any;
   setSearchTerm: (searchTerm: string) => any;
   searchTerm: string;
+  status: number | null;
 }
 
 export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutocomplete> {
@@ -22,6 +24,7 @@ export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutoc
     errorMessage: '',
     isSearching: false,
     searchTerm: '',
+    status: null,
   };
 
   public componentDidUpdate(prevProps: ICitiesSearchAutocomplete) {
@@ -42,6 +45,7 @@ export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutoc
       cities,
       errorMessage,
       isSearching,
+      status,
     } = this.props;
 
     return (
@@ -55,8 +59,13 @@ export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutoc
             cities={cities}
           />
         }
-        {errorMessage &&
+        {status && status === 404 &&
           <div className="notification">
+            Aucune ville trouvée
+          </div>
+        }
+        {errorMessage &&
+          <div className="notification is-danger">
             {errorMessage}
           </div>
         }
@@ -66,11 +75,13 @@ export class CitiesSearchAutocomplete extends React.Component<ICitiesSearchAutoc
 }
 
 const mapStateToProps = (state: any) => {
+  console.log(state);
   const {
     cities,
     searchTerm,
     isSearching,
     errorMessage,
+    status,
   } = state.searchReducer;
 
   return ({
@@ -78,6 +89,7 @@ const mapStateToProps = (state: any) => {
     errorMessage,
     isSearching,
     searchTerm,
+    status,
   });
 }
 

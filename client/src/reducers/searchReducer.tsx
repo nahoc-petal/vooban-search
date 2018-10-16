@@ -3,6 +3,7 @@ export default (state = {
   errorMessage: '',
   isSearching: false,
   searchTerm: '',
+  status: null,
 }, action: any) => {
   switch (action.type) {
     case 'SET_SEARCH_TERM':
@@ -20,6 +21,7 @@ export default (state = {
         ...state,
         cities: action.cities,
         isSearching: action.isSearching,
+        status: action.status,
       };
     case 'SEARCH_CITIES_FAILURE':
       return {
@@ -32,6 +34,7 @@ export default (state = {
         ...state,
         cities: action.cities,
         errorMessage: action.errorMessage,
+        status: action.status,
       };
     default:
       return state;

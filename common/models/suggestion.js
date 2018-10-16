@@ -33,22 +33,26 @@ module.exports = function (Suggestion) {
   }
 
   function getMyLatitude() {
-    return 43.70011;
+    return 43.70011; // this is static for now
   }
 
   function getMyLongitude() {
-    return -79.4163;
+    return -79.4163; // this is static for now
+  }
+
+  function throw404(cb) {
+    let error = new Error("No cities found");
+    error.status = 404;
+    return cb(null, error);
   }
 
   function findMultiple(q, lat, long, cb) {
     let where = {};
-    let myLat = getMyLatitude(); // this is static for now
-    let myLong = getMyLongitude(); // this is static for now
+    let myLat = getMyLatitude();
+    let myLong = getMyLongitude();
     let qLike = '.*' + q + '.*';
 
     where.name = { like: qLike, options: "i" };
-    lat ? where.lat = { like: lat, options: "i" } : null;
-    long ? where.long = { like: long, options: "i" } : null;
 
     Suggestion.find({ where }, function(err, response) {
 
@@ -59,7 +63,6 @@ module.exports = function (Suggestion) {
       });
 
       let furthestDistance = Math.max(...distances);
-
       response.map((city, index) => {
         let score = calculateScore(distances[index], furthestDistance);
         city.score = score / 100;
@@ -67,7 +70,7 @@ module.exports = function (Suggestion) {
 
       sortByScore(response);
       response.splice(5, response.length - 5); // return 5 results
-      cb(null, response);
+      response.length > 0 ? cb(null, response) : throw404(cb);
     });
   }
 
@@ -75,8 +78,6 @@ module.exports = function (Suggestion) {
 
     let where = {};
     where.name = q.capitalize();
-    lat ? where.lat = { like: lat, options: "i" } : null;
-    long ? where.long = { like: long, options: "i" } : null;
 
     let myLat = getMyLatitude(); // this is static for now
     let myLong = getMyLongitude(); // this is static for now
